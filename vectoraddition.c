@@ -25,18 +25,33 @@ int main (int argc, char *argv[])
       y[i] = 2.0;
     }
 
+  // Serial version
   // Compute the wall time
 
   double start = omp_get_wtime();
 
-  #pragma omp parallel for private(i) shared(x,y)
   for (i = 0; i < n; i++) {
       x[i] = x[i] + y[i];
     }
 
   double end = omp_get_wtime();
 
-  printf("Time taken: %f seconds \n", end - start);
+  printf("Time taken: %f seconds for serial run \n", end - start);
+
+
+  // Parallel version
+  // Compute the wall time
+
+  start = omp_get_wtime();
+
+  #pragma omp parallel for private(i) shared(x,y)
+  for (i = 0; i < n; i++) {
+      x[i] = x[i] + y[i];
+    }
+
+  end = omp_get_wtime();
+
+  printf("Time taken: %f seconds parallel run \n", end - start);
 
   free(x);
   free(y);
