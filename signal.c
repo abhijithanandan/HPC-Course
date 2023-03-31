@@ -5,6 +5,7 @@
 
 // alter the behavior of the process when a sinal is received is raised
 void handler(int signo) {
+  // printf is not async safe, so we use write instead
   write(STDOUT_FILENO, "I won't die!\n", signo);
 }
 
