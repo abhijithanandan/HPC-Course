@@ -12,13 +12,11 @@ int a = 0;
 
 int main(int argc, char *argv[]) {
   int pid;
-  int *p;
-  int i;
 
   pid = fork();
   if (pid == 0) {
     // Child processes
-    a = 80;
+    a = 2;
   } else {
     // Parent process
     wait(NULL);
