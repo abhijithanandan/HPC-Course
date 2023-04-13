@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-void *thread_function1(void *arg) {
+void *function1(void *arg) {
   int *val = (int *)arg;
   int *iptr = (int *)malloc(sizeof(int));
   for (int i = 0; i < 5; i++) {
@@ -18,6 +18,14 @@ void *thread_function1(void *arg) {
   return iptr;
 }
 
+void function2() {
+  for (int i = 0; i < 5; i++) {
+    sleep(2);
+    printf("Fun 2 Iter: %d\n", i);
+  }
+
+}
+
 
 int main() {
   pthread_t thread_id;
@@ -25,11 +33,12 @@ int main() {
   int *ret_val;
   int ret;
 
-  ret = pthread_create(&thread_id, NULL, thread_function1, &val);
+  ret = pthread_create(&thread_id, NULL, function1, &val);
   if (ret != 0) {
     printf("Error creating thread %d ", ret);
     return 1;
   }
+  function2();
 
   //wait until the thread finishes
   pthread_join(thread_id, (void *)&ret_val);
